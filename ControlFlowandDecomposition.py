@@ -39,3 +39,19 @@ def main():
     prices= [120,85,230]
     show_totals(prices,0.1,0.12)
 main()
+
+
+print("novo")
+def calcular_total(price,discount_rate,tax_rate):
+    discounted_price = price* (1-discount_rate)
+    total = discounted_price *(1+tax_rate)
+    return total
+def show_totals(prices,discount_rate,tax_rate):
+    for price in prices:
+        total = calcular_total(price,discount_rate,tax_rate)
+        print(f"O total é {total:.2f}")
+
+def main():
+    prices = [120,85,230]
+    show_totals(prices,0.1,0.12)
+main()
