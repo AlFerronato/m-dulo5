@@ -31,3 +31,8 @@ lista_desvinculada = lista1.copy()
 print("antes",lista1)
 lista_desvinculada.append("ovo")
 print("depois",lista1)
+
+original = [[1],[2]]
+copied = original.copy()
+copied[0].append(9)
+print(copied)
