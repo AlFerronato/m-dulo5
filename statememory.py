@@ -18,4 +18,16 @@ add_item(cart,"caneta")
 aumentar(count)
 print(cart)
 print(count)
-    
+
+
+animais = ["vaca","cachorro","gato"]
+print("antes: ", animais)
+copia = animais
+copia.append("cavalo")
+print("depois: ",animais)
+
+lista1 = ["carne","arroz"]
+lista_desvinculada = lista1.copy()
+print("antes",lista1)
+lista_desvinculada.append("ovo")
+print("depois",lista1)
