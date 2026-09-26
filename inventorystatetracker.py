@@ -25,6 +25,23 @@ def reabastecer(inventory,transactions,amount,sku,changed_skus):
     inventory[sku]["quantity"] += amount
     changed_skus.add(sku)
     gravar(transactions,"Reabastecimento",amount,sku)
+def total_estoque(inventory):
+    total = 0
+    for item in inventory.values():
+        total += item["price"] * item["quantity"] 
+    return total
+def save_path(inventory,transactions,changed_skus,caminho):
+    estado = {
+        "inventory" : inventory,
+        "transactions" : transactions,
+        "changed_skus" : list(changed_skus)
+    }
+    with open(caminho,"w") as arquivo:
+        json.dump(estado,arquivo)
+def open_path(caminho):
+    with open(caminho,"r") as arquivo:
+        estado = json.load(arquivo)
+    return estado["inventory"],estado["transactios"], set(estado["changed_skus"])
 def main():
     transactions = []
     changed_skus = set()
@@ -48,4 +65,9 @@ def main():
             sku = input("Digite o SKU do produto: ")
             quantidade = int(input("digite a quantidade: "))
             reabastecer(inventory,transactions,quantidade,sku,changed_skus)
-            
+        elif opcao =="3":
+            print(total_estoque(inventory))
+        elif opcao == "4":
+            save_path(inventory,transactions,changed_skus,"estado.json")
+        elif opcao =="5":
+# teste
