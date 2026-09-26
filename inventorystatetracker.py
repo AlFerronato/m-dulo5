@@ -30,6 +30,13 @@ def total_estoque(inventory):
     for item in inventory.values():
         total += item["price"] * item["quantity"] 
     return total
+def low_stock_skus(inventory,threshold):
+    resultado = []
+    for sku, item in inventory.items():
+        if item["quantity"]<=threshold:
+            resultado.append(sku)
+    return sorted(resultado)
+
 def save_path(inventory,transactions,changed_skus,caminho):
     estado = {
         "inventory" : inventory,
@@ -41,7 +48,7 @@ def save_path(inventory,transactions,changed_skus,caminho):
 def open_path(caminho):
     with open(caminho,"r") as arquivo:
         estado = json.load(arquivo)
-    return estado["inventory"],estado["transactios"], set(estado["changed_skus"])
+    return estado["inventory"],estado["transactions"], set(estado["changed_skus"])
 def main():
     transactions = []
     changed_skus = set()
@@ -53,10 +60,11 @@ def main():
         print("1. Vender item")
         print("2. Reabastecer item")
         print("3. Ver valor total do estoque")
-        print("4. Salvar estado")
-        print("5. Carregar estado")
-        print("6. Sair")
-        opcao = input("Escolha uma opção (1-6): ")
+        print("4, Ver SKU com baixo estoque")
+        print("5. Salvar estado")
+        print("6. Carregar estado")
+        print("7. Sair")
+        opcao = input("Escolha uma opção (1-7): ")
         if opcao == "1":
             sku = input("Digite o SKU do produto: ")
             quantidade = int(input("Digite a quantidade: "))
@@ -68,6 +76,12 @@ def main():
         elif opcao =="3":
             print(total_estoque(inventory))
         elif opcao == "4":
+            threshold = int(input("Digite um valor de limite mínimo: "))
+            print(low_stock_skus(inventory,threshold))
+        elif opcao == "5":
             save_path(inventory,transactions,changed_skus,"estado.json")
-        elif opcao =="5":
-# teste
+        elif opcao =="6":
+            inventory,transactions,changed_skus = open_path("estado.json")
+
+        elif opcao =="7":
+            break
