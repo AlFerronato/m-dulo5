@@ -82,6 +82,5 @@ def main():
             save_path(inventory,transactions,changed_skus,"estado.json")
         elif opcao =="6":
             inventory,transactions,changed_skus = open_path("estado.json")
-
         elif opcao =="7":
             break
